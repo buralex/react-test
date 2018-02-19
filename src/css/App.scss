@@ -39,7 +39,14 @@ canvas {
   font-size: large;
 }
 
+.test {
+  color: green;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/*------------------------------------ MEDIA ------------------*/
+@import "media"; //always at the end

@@ -5,6 +5,9 @@ import React, { PureComponent, Fragment } from 'react';
 // import bricks from './bricks';
 //import bricks from './b1';
 
+import debounce from "lodash/debounce";
+
+
 export default class NightSky extends PureComponent {
 
     constructor(props) {
@@ -18,6 +21,12 @@ export default class NightSky extends PureComponent {
 
     componentDidMount() {
         this.skyLogic();
+
+        this.calcHeight();
+
+        //window.addEventListener("resize", debounce(this.calcHeight, 100));
+        window.addEventListener("resize", debounce(this.skyLogic, 1000));
+        //window.addEventListener("resize", this.skyLogic);
     }
 
     componentDidUpdate() {
@@ -26,13 +35,19 @@ export default class NightSky extends PureComponent {
 
     skyLogic = () => {
 
-        const background = document.getElementById("bgCanvas");
-        const bgCtx = background.getContext("2d");
-        const width = document.body.clientWidth;
-        const height = document.body.clientHeight;
 
-        background.width = width;
-        background.height = height;
+        //const background = document.getElementById("bgCanvas");
+        const bgCtx = this.bgCanvas.getContext("2d");
+        const width = Math.max( document.documentElement.clientWidth, window.innerWidth );
+        const height = Math.max( document.documentElement.clientHeight, window.innerHeight );
+
+
+        console.log(document.documentElement);
+        console.log('BODY CLW', width);
+        console.log('BODY INW', window.innerWidth);
+
+        this.bgCanvas.width = width;
+        this.bgCanvas.height = height;
 
             bgCtx.fillStyle = '#e7e5f8';
             bgCtx.fillRect(0,0,width,height);
@@ -110,6 +125,15 @@ export default class NightSky extends PureComponent {
     }
 
 
+    calcHeight() {
+        //window.outerHeight
+        var vheight = Math.max( document.documentElement.clientHeight, window.innerHeight );
+        var views = document.querySelectorAll('.cont-view');
+
+        console.log('VHEIGHT', vheight);
+    }
+
+
     render() {
         // const {
         //     paddle,
@@ -119,7 +143,7 @@ export default class NightSky extends PureComponent {
 
         return (
             <Fragment>
-                <canvas id="bgCanvas"/>
+                <canvas ref={(c) => {this.bgCanvas = c}} id="bgCanvas"/>
             </Fragment>
         );
     }

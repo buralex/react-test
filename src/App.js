@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './css/App.css';
+
+import debounce from "lodash/debounce";
 
 import NightSky from './components/NightSky';
 
@@ -31,6 +33,11 @@ class App extends Component {
     componentDidMount() {
         this.interval = setInterval(() => this.tick(), 1000);
         this.interval2 = setInterval(() => this.tick2(), 1000);
+
+        //this.calcHeight();
+        //window.addEventListener("resize", debounce(function() { calcHeight() }, 10));
+
+        //window.addEventListener("resize", debounce(this.calcHeight, 100));
     }
 
     tick() {
@@ -139,6 +146,8 @@ class App extends Component {
         var vheight = Math.max( document.documentElement.clientHeight, window.innerHeight );
         var views = document.querySelectorAll('.cont-view');
 
+        console.log('VHEIGHT', vheight);
+
         // for ( var i  = 0; i < views.length; i++ ) {
         //     var view = views[i];
         //     view.style.height = vheight + "px"
@@ -228,12 +237,14 @@ class App extends Component {
           {/*/!*<h1 className="App-title"></h1>*!/*/}
         {/*</header>*/}
 
-          <audio ref={(el) => { this.audioNode = el; }} src={sounds[0]} type="audio/mpeg" controls >
+          <audio className="audio" ref={(el) => { this.audioNode = el; }} src={sounds[0]} type="audio/mpeg" controls >
           </audio>
 
           <button onClick={this.showResolution}>
               show resolution
           </button>
+
+          <div className="test">test</div>
 
           <button
               ref={(m) => {this.mute = m}}
