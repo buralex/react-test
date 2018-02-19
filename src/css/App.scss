@@ -43,6 +43,21 @@ canvas {
   color: green;
 }
 
+.field {
+
+  .brick {
+    background-color: #e7e5f8;
+    border: 1px solid slategrey;
+    width: 5px;
+    height: 5px;
+  }
+
+  .brick.removed {
+    background-color: #787785;
+  }
+
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

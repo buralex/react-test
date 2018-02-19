@@ -13,6 +13,12 @@ const sounds = [
     'media/s2.mp3',
 ];
 
+const briks = [
+    0,0,0,0,0,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,1,1,1,1,
+];
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -27,6 +33,8 @@ class App extends Component {
                 sec: 0,
                 show: false,
             },
+            reset: true,
+            resetKey: 0,
         }
     }
 
@@ -225,10 +233,26 @@ class App extends Component {
     }
 
 
+    removeBrick = (e) => {
+        e.target.classList.add('removed');
+    }
+
+    resetApp = () => {
+        console.log(this.field);
+
+        //this.field.dangerouslySetInnerHTML = '';
+        //this.field.remove();
+        //this.field.reset();
+
+        this.setState(prevState => ({
+            resetKey: prevState.resetKey + 1,
+        }));
+    }
+
 
   render() {
 
-
+    console.log('render==============================>');
 
     return (
       <div className="App">
@@ -252,6 +276,25 @@ class App extends Component {
               onClick={this.playMusic}
           >
               mute
+          </button>
+
+          <div key={this.state.resetKey} className="field" ref={(el) => { this.field = el; }}>
+              {briks.map((b, i) => {
+
+                  return (
+                      <div className="brick" onClick={this.removeBrick} key={`key${i+1}`} brick={i}></div>
+                  );
+              })
+
+              }
+          </div>
+
+          <button
+              ref={(m) => {this.mute = m}}
+              className="button mute"
+              onClick={this.resetApp}
+          >
+              reset
           </button>
 
           <NightSky/>
