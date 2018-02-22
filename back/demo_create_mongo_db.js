@@ -6,3 +6,5 @@ MongoClient.connect(url, function(err, db) {
     console.log("Database created!");
     db.close();
 });
+
+//db.createUser( { user: "alex", pwd: "", roles: [ { role: "userAdminAnyDatabase", db: "admin" } ] } )
