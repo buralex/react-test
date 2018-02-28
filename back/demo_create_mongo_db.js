@@ -7,4 +7,4 @@ MongoClient.connect(url, function(err, db) {
     db.close();
 });
 
-//db.createUser( { user: "alex", pwd: "", roles: [ { role: "userAdminAnyDatabase", db: "admin" } ] } )
+////db.createUser( { user: "alex", pwd: "", roles: [ { role: "userAdminAnyDatabase", db: "admin" } ] } )
